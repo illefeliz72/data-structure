@@ -9,7 +9,7 @@ public class RegistrationTablet {
 
     public static void main(String[] args) {
 
-        loadFromFile(); 
+        loadFromFile();
         int choice;
         do {
             System.out.println("\n===== GRAPHIC TABLET MENU =====");
@@ -25,45 +25,38 @@ public class RegistrationTablet {
             choice = input.nextInt();
             input.nextLine();
 
-            switch(choice){
+            switch (choice) {
 
                 case 1:
                     addTablet();
                     break;
-
                 case 2:
                     searchTablet();
                     break;
-
                 case 3:
                     editTablet();
                     break;
-
                 case 4:
                     deleteTablet();
                     break;
-
                 case 5:
                     sortTablets();
                     break;
-
                 case 6:
                     listTablets();
                     break;
-
                 case 7:
                     saveToFile();
                     System.out.println("Program closed.");
                     break;
-
                 default:
                     System.out.println("Invalid choice.");
             }
 
-        } while(choice != 7);
+        } while (choice != 7);
     }
 
-    public static void addTablet(){
+    public static void addTablet() {
 
         System.out.println("\nRegister your Graphic Tablet!");
 
@@ -77,14 +70,14 @@ public class RegistrationTablet {
         String connection = input.nextLine();
         System.out.print("Price: ");
         String price = input.nextLine();
-        tablets.add(new String[]{brand,model,pressure,connection,price});
+        tablets.add(new String[] { brand, model, pressure, connection, price });
 
         System.out.println("Tablet added successfully.");
     }
 
-    public static void searchTablet(){
+    public static void searchTablet() {
 
-        if(tablets.isEmpty()){
+        if (tablets.isEmpty()) {
             System.out.println("No tablets registered.");
             return;
         }
@@ -94,9 +87,9 @@ public class RegistrationTablet {
 
         boolean found = false;
 
-        for(String[] t : tablets){
+        for (String[] t : tablets) {
 
-            if(t[1].equalsIgnoreCase(search)){
+            if (t[1].equalsIgnoreCase(search)) {
 
                 System.out.println("\nTablet Found");
                 System.out.println("Brand: " + t[0]);
@@ -110,13 +103,13 @@ public class RegistrationTablet {
             }
         }
 
-        if(!found)
+        if (!found)
             System.out.println("Tablet not found.");
     }
 
-    public static void editTablet(){
+    public static void editTablet() {
 
-        if(tablets.isEmpty()){
+        if (tablets.isEmpty()) {
             System.out.println("No tablets to edit.");
             return;
         }
@@ -124,9 +117,9 @@ public class RegistrationTablet {
         System.out.print("Enter model to edit: ");
         String search = input.nextLine();
 
-        for(String[] t : tablets){
+        for (String[] t : tablets) {
 
-            if(t[1].equalsIgnoreCase(search)){
+            if (t[1].equalsIgnoreCase(search)) {
 
                 System.out.print("New Brand: ");
                 t[0] = input.nextLine();
@@ -151,9 +144,9 @@ public class RegistrationTablet {
         System.out.println("Tablet not found.");
     }
 
-    public static void deleteTablet(){
+    public static void deleteTablet() {
 
-        if(tablets.isEmpty()){
+        if (tablets.isEmpty()) {
             System.out.println("No tablets to delete.");
             return;
         }
@@ -161,9 +154,9 @@ public class RegistrationTablet {
         System.out.print("Enter model to delete: ");
         String search = input.nextLine();
 
-        for(int i = 0; i < tablets.size(); i++){
+        for (int i = 0; i < tablets.size(); i++) {
 
-            if(tablets.get(i)[1].equalsIgnoreCase(search)){
+            if (tablets.get(i)[1].equalsIgnoreCase(search)) {
 
                 tablets.remove(i);
                 System.out.println("Tablet deleted.");
@@ -174,16 +167,16 @@ public class RegistrationTablet {
         System.out.println("Tablet not found.");
     }
 
-    public static void sortTablets(){
+    public static void sortTablets() {
 
-        tablets.sort((a,b)->a[0].compareToIgnoreCase(b[0]));
+        tablets.sort((a, b) -> a[0].compareToIgnoreCase(b[0]));
 
         System.out.println("Tablets sorted by Brand.");
     }
 
-    public static void listTablets(){
+    public static void listTablets() {
 
-        if(tablets.isEmpty()){
+        if (tablets.isEmpty()) {
             System.out.println("No tablets registered.");
             return;
         }
@@ -192,45 +185,45 @@ public class RegistrationTablet {
         System.out.println("--------------------------------------------------------------");
 
         System.out.printf("%-12s %-20s %-12s %-15s %-10s\n",
-                "Brand","Model","Pressure","Connection","Price");
+                "Brand", "Model", "Pressure", "Connection", "Price");
 
-        for(String[] t : tablets){
+        for (String[] t : tablets) {
 
             System.out.printf("%-12s %-20s %-12s %-15s %-10s\n",
-                    t[0],t[1],t[2],t[3],t[4]);
+                    t[0], t[1], t[2], t[3], t[4]);
         }
     }
 
-    public static void saveToFile(){
+    public static void saveToFile() {
 
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
 
-            for(String[] t : tablets){
+            for (String[] t : tablets) {
 
                 writer.write(String.join(",", t));
                 writer.newLine();
             }
 
-        }catch(IOException e){
+        } catch (IOException e) {
             System.out.println("Error saving file.");
         }
     }
 
-    public static void loadFromFile(){
+    public static void loadFromFile() {
 
-        try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
 
             String line;
 
-            while((line = reader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
 
                 String[] data = line.split(",");
 
-                if(data.length == 5)
+                if (data.length == 5)
                     tablets.add(data);
             }
 
-        }catch(IOException e){
+        } catch (IOException e) {
             System.out.println("No existing file found.");
         }
     }
