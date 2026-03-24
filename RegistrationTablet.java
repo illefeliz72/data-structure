@@ -170,11 +170,34 @@ public class RegistrationTablet {
         System.out.println("Tablet not found.");
     }
 
-    public static void sortTablets() {
+   public static void sortTablets() {
 
-        tablets.sort((a, b) -> a[0].compareToIgnoreCase(b[0]));
-        System.out.println("Tablets sorted by Brand.");
+    if (tablets.isEmpty()) {
+        System.out.println("No tablets to sort.");
+        return;
     }
+
+    System.out.println("1. Ascending");
+    System.out.println("2. Descending");
+    System.out.print("Choose: ");
+    int choice = input.nextInt();
+    input.nextLine();
+
+    if (choice == 1) {
+        tablets.sort((a, b) -> a[0].compareToIgnoreCase(b[0]));
+        System.out.println("Sorted Ascending.");
+    } 
+    else if (choice == 2) {
+        tablets.sort((a, b) -> b[0].compareToIgnoreCase(a[0]));
+        System.out.println("Sorted Descending.");
+    } 
+    else {
+        System.out.println("Invalid choice.");
+        return;
+    }
+
+    listTablets(); // reuse your existing display method ✔
+}
 
     public static void listTablets() {
 
@@ -322,4 +345,5 @@ public class RegistrationTablet {
 
         System.out.println("Tablet not found.");
     }
+    
 }
