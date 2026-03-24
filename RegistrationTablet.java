@@ -76,7 +76,7 @@ public class RegistrationTablet {
         System.out.print("Price: ");
         String price = input.nextLine();
 
-        tablets.add(new String[]{brand, model, pressure, connection, price});
+        tablets.add(new String[] { brand, model, pressure, connection, price });
 
         System.out.println("Tablet added successfully.");
     }
@@ -279,5 +279,47 @@ public class RegistrationTablet {
         } catch (IOException e) {
             System.out.println("No existing file found.");
         }
+    }
+
+    public static void searchAndRemove() {
+
+        if (tablets.isEmpty()) {
+            System.out.println("No tablets registered.");
+            return;
+        }
+
+        System.out.print("Enter model to search: ");
+        String search = input.nextLine();
+
+        for (int i = 0; i < tablets.size(); i++) {
+
+            String[] t = tablets.get(i);
+
+            if (t[1].equalsIgnoreCase(search)) {
+
+                // Display details
+                System.out.println("\nTablet Found");
+                System.out.println("Brand: " + t[0]);
+                System.out.println("Model: " + t[1]);
+                System.out.println("Pressure: " + t[2]);
+                System.out.println("Connection: " + t[3]);
+                System.out.println("Price: " + t[4]);
+
+                // Ask user
+                System.out.print("\nDo you want to remove this tablet? (yes/no): ");
+                String choice = input.nextLine();
+
+                if (choice.equalsIgnoreCase("yes")) {
+                    tablets.remove(i); // removes and shifts automatically
+                    System.out.println("Tablet removed successfully.");
+                } else {
+                    System.out.println("Tablet not removed.");
+                }
+
+                return;
+            }
+        }
+
+        System.out.println("Tablet not found.");
     }
 }
